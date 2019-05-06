@@ -16,6 +16,7 @@ public class EnemyHit : MonoBehaviour
         if(distance.magnitude < hitDistance && !hitEffect.gameObject.activeSelf)
         {
             hitEffect.gameObject.SetActive(true);
+            hitEffect.GetComponent<HitEffect>().Attack();
             hitEffect.position = transform.position + distance.normalized * playerHitDistance;
         }        
     }

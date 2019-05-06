@@ -15,18 +15,21 @@ public class HitEffect : MonoBehaviour
         gameObject.SetActive(false);
     }
     bool HasBeenActivated;
-    float attackTime;
+    float attackTimer;
+    float attackTime = 0.3f;
     public void Attack(){
         HasBeenActivated = false;
-        attackTime = Time.timeSinceLevelLoad;
+        attackTimer = Time.timeSinceLevelLoad;
     }
-    void OntriggerEnter2D(Collider2D coll){
-        if(coll.CompareTag("Player") && !HasBeenActivated)
+    void OnTriggerEnter2D(Collider2D coll){
+        
+        if(coll.CompareTag("Player") && !HasBeenActivated && attackTime + attackTimer > Time.timeSinceLevelLoad)
         {
             coll.transform.GetComponent<PlayerHealth>().TakeDamage(damageAmount);
             HasBeenActivated = true;
         }
-        
+        StartCoroutine("HitTimer");
+
     }
     IEnumerator HitTimer(){
         
